@@ -26,11 +26,11 @@ jobs:
       runs-on: ubuntu-latest
 
       env: 
-      salida: ${{ needs.deploy-codigoFacilito.outputs.salida }}
+      SALIDA: ${{ needs.deploy-codigoFacilito.outputs.salida }}
 
       steps:
         - name: Segundo jobs
-          run: echo "$salida"
+          run: echo "${{ needs.deploy-codigoFacilito.outputs.salida}}"
 
 name: Deploy Codigo Facilito
 'on':
