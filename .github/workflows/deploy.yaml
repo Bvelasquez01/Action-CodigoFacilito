@@ -5,6 +5,8 @@ jobs:
       Name: Codigofacilito
     runs-on: ubuntu-latest
     steps:
+      outputs:
+        salida: ${{ steps.step_1.outputs.my_Variable }}
       - run: echo "Hacemos pull del codigo"
       - name: working dir
         run: ls -al
@@ -18,6 +20,17 @@ jobs:
 
       - name: Obtener mensaje de variables
         run: echo "${{ steps.step_1.outputs.my_Variable }}"
+
+    Second_job:
+      needs: deploy-codigoFacilito
+      runs-on: ubuntu-latest
+
+      env: 
+      salida: ${{ needs.deploy-codigoFacilito.outputs.salida }}
+
+      steps:
+        - name: Segundo jobs
+          run: echo "$salida"
 
 name: Deploy Codigo Facilito
 'on':
