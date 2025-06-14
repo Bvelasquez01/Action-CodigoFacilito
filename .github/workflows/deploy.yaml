@@ -8,8 +8,17 @@ on:
 jobs:
   deploy-codigoFacilito:
     runs-on: ubuntu-latest
+
+    env:
+      Name: Codigofacilito
+
     steps: 
       - run: echo "Hacemos pull del codigo"
-      - run: echo "Correr migraciones"
-      - run: echo "generar binario"
-      - run: echo "publicar version"
+      - name: working dir
+        run: ls -al
+
+      - name: Action
+        uses: actions/checkout@v4
+
+      - name: working dir after actions
+        run: ls -al
