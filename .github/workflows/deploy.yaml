@@ -1,24 +1,25 @@
-name: "Deploy Codigo Facilito"
-
-on: 
-  push:
-    branches: ["main"]
-
-
+---
 jobs:
   deploy-codigoFacilito:
-    runs-on: ubuntu-latest
-
     env:
       Name: Codigofacilito
-
-    steps: 
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "Hacemos pull del codigo"
       - name: working dir
         run: ls -al
-
       - name: Action
         uses: actions/checkout@v4
-
       - name: working dir after actions
         run: ls -al
+      - name: working dir 2
+        id: step_1
+        run: echo "my_Variable=Hola mundo variables" >> $GITHUB_OUTPUT
+
+      - name: Obtener mensaje de variables
+        run: echo "${{ steps.step_1.outputs.my_Variable }}"
+
+name: Deploy Codigo Facilito
+'on':
+  push:
+    branches: ["main"]
