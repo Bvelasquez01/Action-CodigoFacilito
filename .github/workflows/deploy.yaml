@@ -11,15 +11,6 @@ jobs:
 
     steps:
       - name: working dir
-        run: ls -al
-
-      - name: Action
-        uses: actions/checkout@v4
-
-      - name: working dir after actions
-        run: ls -al
-
-      - name: working dir 2
         id: step_1
         run: echo "my_Variable=Hola mundo variables" >> $GITHUB_OUTPUT
 
@@ -31,7 +22,7 @@ jobs:
       needs: first_job
 
       env: 
-      SALIDA: ${{ needs.first_job.outputs.salida }}
+        SALIDA: ${{ needs.first_job.outputs.salida }}
 
       steps:
         - name: Segundo jobs
