@@ -10,23 +10,15 @@ jobs:
       salida: ${{ steps.step_1.outputs.my_Variable }}
 
     steps:
-      - name: working dir
-        id: step_1
-        run: echo "my_Variable=Hola mundo variables" >> $GITHUB_OUTPUT
+      - name: GenerarArchivo
+        run: echo "archivo de prueba, hola artefacto" >> testArtefacto.log
 
-      - name: Obtener mensaje de variables
-        run: echo "${{ steps.step_1.outputs.my_Variable }}"
-
-  Second_job:
-    runs-on: ubuntu-latest
-    needs: first_job
-
-    env: 
-      SALIDA: ${{ needs.first_job.outputs.salida }}
-
-    steps:
-      - name: Segundo jobs
-        run: echo "${{ needs.first_job.outputs.salida}}"
+      - name: subirArtefacto
+        uses: actions/upload-artefact@v4
+        with:
+          name: archivoArtefacto-test
+          path: testArtefacto.log
+        
 
 name: Deploy Codigo Facilito
 'on':
