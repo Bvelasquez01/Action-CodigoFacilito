@@ -27,7 +27,7 @@ jobs:
       - name: Descargar_Artefacto
         uses: actions/download-artifact@v4
         with: 
-          name: archivoTest
+          name: archivoArtefacto-test
 
       - name: catFile
         run: cat testArtefacto.log
