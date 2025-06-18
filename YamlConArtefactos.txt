@@ -1,0 +1,39 @@
+---
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+
+    env:
+      Name: Codigofacilito
+    
+    outputs:
+      salida: ${{ steps.step_1.outputs.my_Variable }}
+
+    steps:
+      - name: GenerarArchivo
+        run: echo "archivo de prueba, hola artefacto" >> testArtefacto.log
+
+      - name: subirArtefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: archivoArtefacto-test
+          path: testArtefacto.log
+  
+  SegundoJob:
+    runs-on: ubuntu-latest
+    needs: first_job
+
+    steps:
+      - name: Descargar_Artefacto
+        uses: actions/download-artifact@v4
+        with: 
+          name: archivoArtefacto-test
+
+      - name: catFile
+        run: cat testArtefacto.log
+        
+
+name: Deploy Codigo Facilito
+'on':
+  push:
+    branches: ["main"]
