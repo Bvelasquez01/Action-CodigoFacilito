@@ -3,10 +3,28 @@ jobs:
   first_job:
     runs-on: ubuntu-latest
 
-    steps:
+    services: 
+      redis: 
+        image: redis
+        ports: 
+          - 6379:6379
+
+    steps:      
+      - name: Install redis cli
+        run: sudo apt-get update -y && sudo apt-get install redis-tools -y 
+
+      - name: Test Redis
+        run: redis-cli -h loaclhost -p 6379 ping
+      
       - name: Print Variable
         run: echo "${{ secrets.Token_Secrect }}"
+
+      - name: setup
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '18'
        
+
 
 name: Deploy
 'on': push
